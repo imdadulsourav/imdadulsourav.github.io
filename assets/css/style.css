@@ -14,7 +14,7 @@
   --line: rgba(46, 37, 31, 0.14);
   --chip: #f6f4ef;
 
-  --display: "Cinzel", "Trajan Pro", Georgia, serif;
+  --display: "Fraunces", Georgia, serif;
   --serif: "Playfair Display", Georgia, serif;
   --sans: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
 
@@ -50,7 +50,7 @@ a { color: inherit; }
   backdrop-filter: blur(6px);
 }
 .home .site-header { position: absolute; left: 0; right: 0; }
-.brand { font-family: var(--display); font-weight: 700; font-size: 15px; letter-spacing: 0.06em; text-decoration: none; white-space: nowrap; }
+.brand { font-family: var(--display); font-weight: 600; font-size: 18px; letter-spacing: 0; text-decoration: none; white-space: nowrap; }
 .home .brand { display: none; }
 .home .nav { margin-right: auto; }
 .nav { display: flex; gap: clamp(14px, 2.2vw, 30px); }
@@ -89,8 +89,8 @@ a { color: inherit; }
   padding: clamp(110px, 14vh, 150px) var(--gutter) clamp(40px, 6vh, 64px);
 }
 .hero-title {
-  font-family: var(--display); font-weight: 700;
-  font-size: clamp(38px, 4.6vw, 66px); line-height: 1.05; letter-spacing: 0.01em;
+  font-family: var(--display); font-weight: 600;
+  font-size: clamp(38px, 4.6vw, 66px); line-height: 1.05; letter-spacing: -0.015em;
   margin: 0; text-wrap: balance;
 }
 .hero-sub { margin: 22px 0 0; color: var(--ink-soft); font-size: 17px; max-width: 46ch; }
@@ -138,14 +138,14 @@ a { color: inherit; }
 main.page { padding: clamp(36px, 7vw, 88px) var(--gutter) 64px; max-width: 1120px; margin: 0 auto; }
 .page-head { display: grid; grid-template-columns: auto 1fr; gap: 22px; align-items: center; margin-bottom: clamp(36px, 6vw, 64px); }
 .page-head h1 {
-  font-family: var(--display); font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;
+  font-family: var(--display); font-weight: 600; letter-spacing: -0.01em;
   font-size: clamp(30px, 5vw, 54px); line-height: 1.08; margin: 0;
 }
 .page-head p { grid-column: 1 / -1; margin: 0; max-width: var(--measure); color: var(--ink-soft); }
 .head-hex { width: 54px; height: 54px; }
 
-h2.section { font-family: var(--display); font-weight: 700; font-size: 22px; letter-spacing: 0.04em; margin: 64px 0 22px; }
-h3 { font-family: var(--display); font-weight: 700; letter-spacing: 0.02em; }
+h2.section { font-family: var(--display); font-weight: 600; font-size: 26px; letter-spacing: -0.005em; margin: 64px 0 22px; }
+h3 { font-family: var(--display); font-weight: 600; letter-spacing: -0.005em; }
 
 .prose { max-width: var(--measure); }
 .prose p { margin: 0 0 1.1em; }
@@ -196,7 +196,7 @@ h3 { font-family: var(--display); font-weight: 700; letter-spacing: 0.02em; }
 
 .pipeline { list-style: none; padding: 0; margin: 30px 0 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; counter-reset: step; }
 .pipeline li { position: relative; padding: 18px 18px 4px 0; border-top: 2px solid var(--mist-deep); counter-increment: step; }
-.pipeline li::before { content: counter(step, decimal-leading-zero); position: absolute; top: -13px; left: 0; background: #fff; padding-right: 8px; font-family: var(--display); font-weight: 700; font-size: 15px; color: var(--moss); }
+.pipeline li::before { content: counter(step, decimal-leading-zero); position: absolute; top: -13px; left: 0; background: #fff; padding-right: 8px; font-family: var(--display); font-weight: 600; font-size: 15px; color: var(--moss); }
 .pipeline b { display: block; font-size: 15px; margin-bottom: 4px; }
 .pipeline span { font-size: 14px; color: var(--ink-soft); line-height: 1.5; display: block; }
 @media (max-width: 760px) { .pipeline { grid-template-columns: 1fr 1fr; row-gap: 22px; } }
