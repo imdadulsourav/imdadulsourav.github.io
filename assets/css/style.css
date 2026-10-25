@@ -151,6 +151,8 @@ h3 { font-family: var(--display); font-weight: 700; letter-spacing: 0.02em; }
 .prose p { margin: 0 0 1.1em; }
 .prose a { text-decoration-color: var(--sage); text-underline-offset: 3px; text-decoration-thickness: 2px; }
 .prose a:hover { text-decoration-color: var(--ink); }
+.where a, .facts-list dd a { text-decoration-color: var(--sage); text-underline-offset: 3px; text-decoration-thickness: 2px; }
+.where a:hover, .facts-list dd a:hover { text-decoration-color: var(--ink); }
 
 /* ---------- about (home) ---------- */
 .about { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: clamp(32px, 6vw, 80px); align-items: start; }
