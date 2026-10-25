@@ -93,7 +93,7 @@ a { color: inherit; }
   font-size: clamp(38px, 4.6vw, 66px); line-height: 1.05; letter-spacing: 0.01em;
   margin: 0; text-wrap: balance;
 }
-.hero-sub { margin: 22px 0 0; color: var(--ink-soft); font-size: 17px; max-width: 40ch; }
+.hero-sub { margin: 22px 0 0; color: var(--ink-soft); font-size: 17px; max-width: 46ch; }
 .hero-links { display: flex; flex-wrap: wrap; gap: 8px 28px; margin-top: 30px; }
 .hero-links a {
   font-size: 15px; font-weight: 600; text-decoration: none; padding: 4px 0;
@@ -102,7 +102,7 @@ a { color: inherit; }
 .hero-links a:hover { border-bottom-color: var(--ink); }
 
 .diagram { min-width: 0; }
-.stage { width: 100%; aspect-ratio: 760 / 430; }
+.stage { width: 100%; aspect-ratio: 760 / 375; }
 .stage svg { width: 100%; height: 100%; display: block; overflow: visible; }
 .stage text { font-family: var(--sans); fill: var(--ink-soft); }
 .diagram-cap { font-size: 13px; color: var(--ink-faint); margin-top: 10px; max-width: 52ch; }

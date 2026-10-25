@@ -28,8 +28,8 @@
   function rnd() { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; }
 
   var INK = "#2e251f", MOSS = "#6f9150", RUST = "#c55b3e";
-  var svg = el("svg", { viewBox: "0 0 760 430", role: "img",
-    "aria-label": "A retinal image made of hexagonal pixels is scanned and passed through a small neural network. Patient risk factors join before the network decides between lesion and healthy." });
+  var svg = el("svg", { viewBox: "0 0 760 375", role: "img",
+    "aria-label": "A retinal image made of hexagonal pixels is scanned and passed through a small neural network. The network then outputs a class, 0 or 1." });
   stage.appendChild(svg);
 
   // ---------- the input image: a fundus photo built from hexagonal pixels ----------
@@ -83,8 +83,8 @@
     return a;
   });
   var outputs = [
-    { x: 700, y: CY - 32, label: "Lesion", hot: RUST, act: 0, out: [] },
-    { x: 700, y: CY + 32, label: "Healthy", hot: MOSS, act: 0, out: [] }
+    { x: 700, y: CY - 32, label: "0", hot: MOSS, act: 0, out: [] },
+    { x: 700, y: CY + 32, label: "1", hot: RUST, act: 0, out: [] }
   ];
   var risk = { x: 590, y: 372, act: 0, out: [] };
 
@@ -106,19 +106,15 @@
   samples.forEach(function (sp) { layers[0].forEach(function (n) { connect(sp, n, { opacity: 0.45 }); }); });
   for (var l = 0; l < layers.length - 1; l++) layers[l].forEach(function (a) { layers[l + 1].forEach(function (b) { connect(a, b); }); });
   layers[2].forEach(function (a) { outputs.forEach(function (o) { connect(a, o); }); });
-  outputs.forEach(function (o) { connect(risk, o, { stroke: "#d9a86a", "stroke-dasharray": "4 4" }); });
 
   var pulseG = el("g", {}, net);
   var nodeG = el("g", { stroke: "#7d7a74", "stroke-width": "1.6" }, net);
   layers.forEach(function (c) { c.forEach(function (n) { n.el = el("circle", { cx: n.x, cy: n.y, r: 7, fill: "#fff" }, nodeG); }); });
   outputs.forEach(function (o) {
     o.el = el("circle", { cx: o.x, cy: o.y, r: 10, fill: "#fff", stroke: INK, "stroke-width": "1.6" }, net);
-    o.text = el("text", { x: o.x + 18, y: o.y + 5, "font-size": "15" }, net);
+    o.text = el("text", { x: o.x + 18, y: o.y + 5, "font-size": "17" }, net);
     o.text.textContent = o.label;
   });
-  risk.el = el("rect", { x: risk.x - 9, y: risk.y - 9, width: 18, height: 18, rx: 4, fill: "#f3e2c1", stroke: INK, "stroke-width": "1.4" }, net);
-  var rl = el("text", { x: risk.x, y: risk.y + 30, "font-size": "13", "text-anchor": "middle" }, net);
-  rl.textContent = "Risk factors";
   var il = el("text", { x: CX, y: CY + DISK + 30, "font-size": "13", "text-anchor": "middle" }, net);
   il.textContent = "Image";
 
@@ -154,7 +150,6 @@
     if (outputs.indexOf(node) >= 0) return;
     if (node.li === 2) {
       node.out.forEach(function (e) { if (e.b === target) send(e, now); });
-      if (risk.fired !== wave) { risk.fired = wave; risk.act = 1; send(risk.out[outputs.indexOf(target)], now, 120); }
       return;
     }
     var outs = shuffle(node.out), k = 2 + (Math.random() < 0.4 ? 1 : 0);
@@ -216,7 +211,6 @@
       if (o.act > 0.02) { o.act *= slow; o.el.setAttribute("fill", mix(o.act, o.hot)); o.text.setAttribute("font-weight", o.act > 0.3 ? "700" : "400"); }
       else if (o.act) { o.act = 0; o.el.setAttribute("fill", "#fff"); o.text.setAttribute("font-weight", "400"); }
     });
-    if (risk.act > 0.02) { risk.act *= decay; risk.el.setAttribute("fill", risk.act > 0.3 ? "#e0bd7f" : "#f3e2c1"); }
     edges.forEach(function (e) {
       if (e.glow > 0.01) {
         e.glow *= decay;
