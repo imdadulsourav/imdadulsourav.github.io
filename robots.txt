@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://imdadulsourav.github.io/sitemap.xml
