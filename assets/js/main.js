@@ -12,6 +12,56 @@
     });
   }
 
+
+  // slide viewers
+  Array.prototype.forEach.call(document.querySelectorAll(".deck"), function (deck) {
+    var base = deck.getAttribute("data-deck"), n = +deck.getAttribute("data-count"), title = deck.getAttribute("data-title");
+    var img = deck.querySelector(".deck-img"), count = deck.querySelector(".deck-count"), bar = deck.querySelector(".deck-progress i");
+    var prev = deck.querySelector('[data-dir="-1"]'), next = deck.querySelector('[data-dir="1"]'), full = deck.querySelector(".deck-full");
+    var i = 1, cache = {};
+    function src(k) { return base + "/" + (k < 10 ? "0" : "") + k + ".webp"; }
+    function warm(k) { if (k >= 1 && k <= n && !cache[k]) { cache[k] = new Image(); cache[k].src = src(k); } }
+    function show(k) {
+      if (k < 1 || k > n) return;
+      i = k;
+      img.classList.add("loading");
+      img.onload = function () { img.classList.remove("loading"); };
+      img.src = src(i);
+      img.alt = "Slide " + i + " of " + n + ": " + title;
+      count.textContent = i + " / " + n;
+      bar.style.width = (i / n * 100) + "%";
+      prev.disabled = i === 1; next.disabled = i === n;
+      warm(i + 1); warm(i - 1);
+    }
+    prev.addEventListener("click", function () { show(i - 1); });
+    next.addEventListener("click", function () { show(i + 1); });
+    deck.querySelector(".deck-frame").addEventListener("click", function (e) {
+      if (document.fullscreenElement === deck) return;
+      var r = this.getBoundingClientRect();
+      show(e.clientX - r.left < r.width * 0.3 ? i - 1 : i + 1);
+    });
+    deck.addEventListener("keydown", function (e) {
+      if (e.key === "ArrowRight") { show(i + 1); e.preventDefault(); }
+      if (e.key === "ArrowLeft") { show(i - 1); e.preventDefault(); }
+    });
+    var x0 = null;
+    deck.addEventListener("touchstart", function (e) { x0 = e.touches[0].clientX; }, { passive: true });
+    deck.addEventListener("touchend", function (e) {
+      if (x0 === null) return;
+      var dx = e.changedTouches[0].clientX - x0; x0 = null;
+      if (Math.abs(dx) > 40) show(dx < 0 ? i + 1 : i - 1);
+    });
+    if (full) {
+      if (!deck.requestFullscreen) full.hidden = true;
+      full.addEventListener("click", function () {
+        if (document.fullscreenElement === deck) document.exitFullscreen();
+        else deck.requestFullscreen().then(function () { deck.focus(); }).catch(function () {});
+      });
+    }
+    prev.disabled = true;
+    deck.addEventListener("mouseenter", function () { warm(2); }, { once: true });
+  });
+
   var stage = document.getElementById("stage");
   if (!stage) return;
   var hero = document.querySelector(".hero");
